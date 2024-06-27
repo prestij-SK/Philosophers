@@ -2,14 +2,19 @@
 #include "../header/validation.h"
 #include "../header/libft.h"
 
+int	philo_thread_data_init(t_Philosophers *data)
+{
+
+}
+
 int	philo_data_init(t_Philosophers *data, char **argv, int argc)
 {
 	if (!data)
 		return (EXIT_FAILURE);
 	data->philo_num = ft_atosize_t(argv[1]);
-	data->time_to_die = ft_atosize_t(argv[2]);
-	data->time_to_eat = ft_atosize_t(argv[3]);
-	data->time_to_sleep = ft_atosize_t(argv[4]);
+	data->time_to_die = ft_atosize_t(argv[2]) * MILLISECOND_VALUE;
+	data->time_to_eat = ft_atosize_t(argv[3]) * MILLISECOND_VALUE;
+	data->time_to_sleep = ft_atosize_t(argv[4]) * MILLISECOND_VALUE;
 	if (argc == 6)
 		data->eat_limit = ft_atosize_t(argv[5]);
 	else
@@ -17,6 +22,11 @@ int	philo_data_init(t_Philosophers *data, char **argv, int argc)
 	if (is_philo_valid_nums(data) == NOT_VALID)
 	{
 		printf("Error: Not Valid Arguments!\n");
+		return (EXIT_FAILURE);
+	}
+	if (philo_thread_data_init(data) == EXIT_FAILURE)
+	{
+		printf("Error: Something Went Wrong!\n");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

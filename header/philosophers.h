@@ -13,6 +13,9 @@ typedef struct PhiloData
 	size_t	time_to_eat;
 	size_t	time_to_sleep;
 	ssize_t	eat_limit;
+	int		*p_arr;
+	int		sim_start;
+	int		sim_end;
 }	t_Philosophers;
 
 int	philo_start(char **argv, int argc);
