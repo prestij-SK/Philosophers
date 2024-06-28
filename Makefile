@@ -7,10 +7,12 @@ SRCS_DIR = src/
 OBJS_DIR = obj/
 HEADERS_DIR = header/
 
-SRCS_NAME = data_init.c \
+SRCS_NAME = data_init_norm.c \
+			data_init.c \
 			libft.c \
 			main.c \
 			philosophers.c \
+			thread_utils.c \
 			utils.c \
 			validation.c \
 

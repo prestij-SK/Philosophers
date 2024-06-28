@@ -1,5 +1,22 @@
 #include "../header/philosophers.h"
 
+void	philo_data_delete(t_PhiloData *data)
+{
+	if (!data)
+		return ;
+	data->philo_num = 0;
+	data->time_to_die = 0;
+	data->time_to_eat = 0;
+	data->time_to_sleep = 0;
+	data->eat_limit = UNDEFINED_VAL;
+	free(data->philo_arr);
+	data->philo_arr = NULL;
+	free(data->fork_arr);
+	data->fork_arr = NULL;
+	// data->simulate_start = B_FALSE;
+	// data->simulate_end = B_TRUE;
+}
+
 static int	philo_thread_data_init(t_PhiloData *data)
 {
 	if (!data)
@@ -9,15 +26,13 @@ static int	philo_thread_data_init(t_PhiloData *data)
 	data->fork_arr = NULL;
 	data->philo_arr = NULL;
 	data->philo_arr = (t_Philo *)malloc(sizeof(t_Philo) * (data->philo_num));
-	if (!data->philo_arr)
-		return (EXIT_FAILURE);
 	data->fork_arr = (t_Fork *)malloc(sizeof(t_Fork) * (data->philo_num));
-	if (!data->fork_arr)
+	if (!data->fork_arr || !data->philo_arr)
 	{
-		free(data->philo_arr);
-		data->philo_arr = NULL;
+		philo_data_delete(data);
 		return (EXIT_FAILURE);
 	}
+	philo_forks_data_init(data);
 	return (EXIT_SUCCESS);
 }
 
