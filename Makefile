@@ -7,12 +7,15 @@ SRCS_DIR = src/
 OBJS_DIR = obj/
 HEADERS_DIR = header/
 
-SRCS_NAME = libft.c \
+SRCS_NAME = data_init.c \
+			libft.c \
 			main.c \
 			philosophers.c \
+			utils.c \
 			validation.c \
 
-HEADERS = libft.h \
+HEADERS = data_and_consts.h \
+		  libft.h \
 		  philosophers.h \
 		  utils.h \
 		  validation.h \

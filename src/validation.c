@@ -1,5 +1,4 @@
 #include "../header/validation.h"
-#include "../header/libft.h"
 
 int	str_is_digits(char *str)
 {
@@ -37,7 +36,7 @@ int	is_philo_valid_args(char **argv, int argc)
 	return (VALID);
 }
 
-int	is_philo_valid_nums(t_Philosophers *data)
+int	is_philo_valid_nums(t_PhiloData *data)
 {
 	if (!data)
 		return (NOT_VALID);
