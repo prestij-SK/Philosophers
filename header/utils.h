@@ -6,5 +6,6 @@
 # include <stdlib.h>
 
 void	error_exit(char	*str);
+void	success_exit(char *str);
 
 #endif

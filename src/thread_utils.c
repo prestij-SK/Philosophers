@@ -45,27 +45,26 @@ void	mutex_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
 		error_exit("The process cannot allocate enough memory to create another mutex.");
 	else if (status == EBUSY)
 		error_exit("Mutex is locked.");
+	else
+		error_exit("Other Mutex Issue!");
 }
 
-void	thread_operation_handle(t_PhiloData *data, pthread_t *thread, void *(*func)(void *), t_OpCode op_code)
+int	thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_data, t_OpCode op_code)
 {
 	int	status;
 
-	if (!thread || !data || !func)
-	{
-		philo_data_delete(data);
-		error_exit("Thread Operation!");
-	}
+	if (!thread || !p_data || !func)
+		return (EXIT_FAILURE);
 	status = EXIT_SUCCESS;
 	if (op_code == CREATE)
-		status = pthread_create(thread, NULL, func, NULL); // The last argument prob must be changed
+		status = pthread_create(thread, NULL, func, p_data);
 	else if (op_code == JOIN)
 		status = pthread_join(*thread, NULL);
 	else if (op_code == DETACH)
 		status = pthread_detach(*thread);
 	else
 		status = EXIT_FAILURE;
-	thread_error_handle(data, status, op_code);
+	return (status);
 }
 
 void	thread_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
@@ -89,5 +88,7 @@ void	thread_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
 	else if (status == ESRCH)
 		error_exit("No thread could be found corresponding to that specified by the given thread ID, thread.");
 	else if (status == EDEADLK)
-		error_exit("A deadlock was detected or the value of thread specifies the calling thread.");	
+		error_exit("A deadlock was detected or the value of thread specifies the calling thread.");
+	else
+		error_exit("Other Thread Issue!");
 }

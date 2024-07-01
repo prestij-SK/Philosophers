@@ -33,6 +33,7 @@ static int	philo_thread_data_init(t_PhiloData *data)
 		return (EXIT_FAILURE);
 	}
 	philo_forks_data_init(data);
+	philo_philosophers_data_init(data);
 	return (EXIT_SUCCESS);
 }
 
