@@ -45,23 +45,25 @@ typedef struct Philosopher
 	size_t		meals_count; // how many times philosopher eat
 	int			is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
 	size_t		last_meal_time; // time passed from last meal
-	t_Fork		*first_fork;
-	t_Fork		*second_fork;
+	t_Fork		*left_fork;
+	t_Fork		*right_fork;
 	pthread_t	thread_id; // philosopher is a thread
 	t_PhiloData	*main_data;
 }	t_Philo;
 
 struct	PhilosophersData
 {
-	size_t	philo_num;
-	size_t	time_to_die;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
-	ssize_t	eat_limit;
-	t_Philo	*philo_arr;
-	t_Fork	*fork_arr;
-	int		simulate_start;
-	int		simulate_end;
+	size_t			philo_num;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	ssize_t			eat_limit;
+	t_Philo			*philo_arr;
+	t_Fork			*fork_arr;
+	// pthread_mutex_t	data_mutex; // To avoid races when reading from main data
+	int				simulate_start;
+	int				simulate_end;
+	int				is_threads_ready; // Used to synchronize Philosophers
 };
 
 #endif

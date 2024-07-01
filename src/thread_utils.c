@@ -49,6 +49,8 @@ void	mutex_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
 		error_exit("Other Mutex Issue!");
 }
 
+// There should be t_PhiloData *data in parameters of this function, but Norminette won't let me do it.
+// So, it is what it is.
 int	thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_data, t_OpCode op_code)
 {
 	int	status;
