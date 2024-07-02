@@ -29,13 +29,15 @@ void	philo_data_delete(t_PhiloData *data);
 	dinner.c functions
 */
 void	philo_dinner_start(t_PhiloData *data);
+int		check_all_full(t_PhiloData *data);
 
 /*
 	thread_utils.c functions
 */
-void	mutex_operation_handle(t_PhiloData *data, pthread_mutex_t *mutex, t_OpCode op_code);
-void	mutex_error_handle(t_PhiloData *data, int status, t_OpCode op_code);
-int		thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_data, t_OpCode op_code);
-void	thread_error_handle(t_PhiloData *data, int status, t_OpCode op_code);
+void	mutex_operation_handle(t_PhiloData *data, pthread_mutex_t *mutex, t_PThreadOpCode op_code);
+void	mutex_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code);
+int		thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_data, t_PThreadOpCode op_code);
+void	thread_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code);
+void	join_all_threads(t_PhiloData *data, void *(*func)(void *));
 
 #endif

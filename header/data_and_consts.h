@@ -2,6 +2,7 @@
 # define DATA_AND_CONSTS
 
 # include <stdlib.h>
+# include <unistd.h>
 # include <pthread.h>
 
 /*** CONSTANTS ***/
@@ -11,15 +12,15 @@
 # define UNDEFINED_VAL -1
 
 /*** STATUSES ***/
-typedef enum PhiloStatus
+typedef enum Statuses
 {
 	B_FALSE = 0,
 	B_TRUE = 1,
 	VALID,
 	NOT_VALID,
-}	t_PhiloStatus;
+}	t_Status;
 
-typedef enum OperationCode
+typedef enum PThreadOperationCode
 {
 	LOCK,
 	UNLOCK,
@@ -28,7 +29,16 @@ typedef enum OperationCode
 	CREATE,
 	JOIN,
 	DETACH,
-}	t_OpCode;
+}	t_PThreadOpCode;
+
+typedef enum PhilosopherStatus
+{
+	FORK_PICK,
+	THINK,
+	EAT,
+	SLEEP,
+	DEAD,
+}	t_PhiloStatus;
 
 /*** STRUCTS ***/
 typedef struct PhilosophersData t_PhiloData;
@@ -44,10 +54,11 @@ typedef struct Philosopher
 	size_t		id;
 	size_t		meals_count; // how many times philosopher eat
 	int			is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
+	int			is_dead;
 	size_t		last_meal_time; // time passed from last meal
 	t_Fork		*left_fork;
 	t_Fork		*right_fork;
-	pthread_t	thread_id; // philosopher is a thread
+	pthread_t	thread; // philosopher is a thread
 	t_PhiloData	*main_data;
 }	t_Philo;
 

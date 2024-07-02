@@ -1,0 +1,1 @@
+This folder is just for OBJ files.

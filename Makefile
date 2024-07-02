@@ -9,6 +9,7 @@ HEADERS_DIR = header/
 
 SRCS_NAME = data_init_norm.c \
 			data_init.c \
+			dinner_utils.c \
 			dinner.c \
 			libft.c \
 			main.c \

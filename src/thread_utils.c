@@ -1,6 +1,6 @@
 #include "../header/philosophers.h"
 
-void	mutex_operation_handle(t_PhiloData *data, pthread_mutex_t *mutex, t_OpCode op_code)
+void	mutex_operation_handle(t_PhiloData *data, pthread_mutex_t *mutex, t_PThreadOpCode op_code)
 {
 	int	status;
 
@@ -23,7 +23,7 @@ void	mutex_operation_handle(t_PhiloData *data, pthread_mutex_t *mutex, t_OpCode 
 	mutex_error_handle(data, status, op_code);
 }
 
-void	mutex_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
+void	mutex_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code)
 {
 	if (!data)
 		error_exit("Mutex Operation!");
@@ -51,7 +51,7 @@ void	mutex_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
 
 // There should be t_PhiloData *data in parameters of this function, but Norminette won't let me do it.
 // So, it is what it is.
-int	thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_data, t_OpCode op_code)
+int	thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_data, t_PThreadOpCode op_code)
 {
 	int	status;
 
@@ -69,7 +69,7 @@ int	thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_da
 	return (status);
 }
 
-void	thread_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
+void	thread_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code)
 {
 	if (!data)
 		error_exit("Thread Operation!");
@@ -93,4 +93,21 @@ void	thread_error_handle(t_PhiloData *data, int status, t_OpCode op_code)
 		error_exit("A deadlock was detected or the value of thread specifies the calling thread.");
 	else
 		error_exit("Other Thread Issue!");
+}
+
+// Actually I won't need the (func) pointer, but just in case let it just be there
+void	join_all_threads(t_PhiloData *data, void *(*func)(void *))
+{
+	size_t	i;
+	int		status;
+
+	if (!data)
+		error_exit("Thread Operation!");
+	i = 0;
+	while (i < data->philo_num)
+	{
+		status = thread_operation_handle(&data->philo_arr[i].thread, func, &data->philo_arr[i], JOIN);
+		thread_error_handle(data, status, JOIN);
+		++i;
+	}
 }
