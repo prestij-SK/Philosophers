@@ -21,5 +21,10 @@ size_t	get_time(void)
 	struct timeval tv;
 
 	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1e3) + (tv.tv_usec * 1e3));
+	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
+}
+
+void	milisecond_sleep(size_t t_miliseconds)
+{
+	usleep(t_miliseconds * 1e3);
 }

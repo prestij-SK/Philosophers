@@ -40,12 +40,12 @@ int	is_philo_valid_nums(t_PhiloData *data)
 {
 	if (!data)
 		return (NOT_VALID);
-	if (data->time_to_die < MIN_TIME_LIMIT ||
-		data->time_to_eat < MIN_TIME_LIMIT ||
-		data->time_to_sleep < MIN_TIME_LIMIT)
-	{
-		return (NOT_VALID);
-	}
+	// if (data->time_to_die < MIN_MILLISECOND_LIMIT ||
+	// 	data->time_to_eat < MIN_MILLISECOND_LIMIT ||
+	// 	data->time_to_sleep < MIN_MILLISECOND_LIMIT)
+	// {
+	// 	return (NOT_VALID);
+	// }
 	if (data->time_to_die <= 0 ||
 		data->time_to_eat <= 0 ||
 		data->time_to_sleep <= 0 ||

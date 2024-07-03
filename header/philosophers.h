@@ -30,6 +30,7 @@ void	philo_data_delete(t_PhiloData *data);
 */
 void	philo_dinner_start(t_PhiloData *data);
 int		check_all_full(t_PhiloData *data);
+int		is_current_philo_dead(t_Philo *philo);
 
 /*
 	thread_utils.c functions

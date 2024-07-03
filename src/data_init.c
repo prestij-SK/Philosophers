@@ -45,9 +45,9 @@ static int	philo_argument_data_init(t_PhiloData *data, char **argv, int argc)
 	if (is_philo_valid_args(argv, argc) == NOT_VALID)
 		return (EXIT_FAILURE);
 	data->philo_num = ft_atosize_t(argv[1]);
-	data->time_to_die = ft_atosize_t(argv[2]) * MILLISECOND_VALUE;
-	data->time_to_eat = ft_atosize_t(argv[3]) * MILLISECOND_VALUE;
-	data->time_to_sleep = ft_atosize_t(argv[4]) * MILLISECOND_VALUE;
+	data->time_to_die = ft_atosize_t(argv[2]) * SECOND_MILLI_VALUE;
+	data->time_to_eat = ft_atosize_t(argv[3]) * SECOND_MILLI_VALUE;
+	data->time_to_sleep = ft_atosize_t(argv[4]) * SECOND_MILLI_VALUE;
 	if (argc == 6)
 		data->eat_limit = ft_atosize_t(argv[5]);
 	else

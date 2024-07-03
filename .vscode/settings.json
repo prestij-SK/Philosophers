@@ -4,6 +4,7 @@
 		"array": "c",
 		"string": "c",
 		"string_view": "c",
-		"data_and_consts.h": "c"
+		"data_and_consts.h": "c",
+		"utils.h": "c"
 	}
 }

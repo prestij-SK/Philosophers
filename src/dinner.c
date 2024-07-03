@@ -17,15 +17,29 @@ static void	dinner_case_checks(t_PhiloData *data)
 
 static void	*time_to_feast(void *p_data)
 {
-	// t_Philo	*philo;
+	t_Philo	*philo;
 
-	// philo = (t_Philo *)p_data;
-	(void) p_data;
-	// wait_all_threads(); TO DO
-	usleep(1000000);
+	philo = (t_Philo *)p_data;
+	if (philo->id % 2 == 0)
+		milisecond_sleep(philo->main_data->time_to_eat);
 	while (1)
 	{
-		printf("Dinner Thread\n");
+		if (is_current_philo_dead(philo) == B_TRUE)
+		{
+			// print
+			philo->is_dead = B_TRUE;
+			// printf("Philo: [%zu]   MAN I'M DEAD\n", philo->id + 1);
+			// break ;
+		}
+		if (philo->is_dead = B_TRUE)
+		{
+			printf("Philo: [%zu]   MAN I'M DEAD\n", philo->id + 1);
+			break ;
+		}
+		// pthread_mutex_lock(&philo->left_fork->fork);
+		// pthread_mutex_unlock(&philo->left_fork->fork);
+		// pthread_mutex_lock(&philo->right_fork->fork);
+		// pthread_mutex_unlock(&philo->right_fork->fork);
 	}
 	return (NULL);
 }
@@ -40,6 +54,7 @@ static void	dinner_simulation(t_PhiloData *data)
 	i = 0;
 	while (i < data->philo_num)
 	{
+		data->philo_arr[i].last_meal_time = get_time();
 		status = thread_operation_handle(&data->philo_arr[i].thread, time_to_feast, &data->philo_arr[i], CREATE);
 		thread_error_handle(data, status, CREATE);
 		++i;
@@ -77,11 +92,11 @@ void	philo_dinner_start(t_PhiloData *data)
 	while (B_TRUE)
 	{
 		observer(data);
-		usleep(3000000); // To wait a little before continueing after checking
-		dinner_simulation(data);
 		printf("Monitor\n");
+		usleep(1000000); // To wait a little before continueing after checking
+		dinner_simulation(data);
 	}
-	join_all_threads(data, time_to_feast);
+	join_all_threads(data, NULL);
 	philo_data_delete(data);
 	success_exit("Simulation Ended!");
 }

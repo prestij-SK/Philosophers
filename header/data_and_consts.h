@@ -7,8 +7,9 @@
 
 /*** CONSTANTS ***/
 # define MAX_NUMBER_COUNT 19
-# define MILLISECOND_VALUE 1e3
-# define MIN_TIME_LIMIT 6e4
+# define SECOND_MILLI_VALUE 1e3
+# define SECOND_MICRO_VALUE 1e6
+# define MIN_MILLISECOND_LIMIT 6e4
 # define UNDEFINED_VAL -1
 
 /*** STATUSES ***/
@@ -52,9 +53,9 @@ typedef struct Fork
 typedef struct Philosopher
 {
 	size_t		id;
-	size_t		meals_count; // how many times philosopher eat
 	int			is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
 	int			is_dead;
+	size_t		meals_count; // how many times philosopher eat
 	size_t		last_meal_time; // time passed from last meal
 	t_Fork		*left_fork;
 	t_Fork		*right_fork;
