@@ -48,6 +48,7 @@ void	philo_philosophers_data_init(t_PhiloData *data)
 		data->philo_arr[i].id = i;
 		data->philo_arr[i].is_full = B_FALSE;
 		data->philo_arr[i].is_dead = B_FALSE;
+		data->philo_arr[i].must_stop = B_FALSE;
 		data->philo_arr[i].meals_count = 0;
 		data->philo_arr[i].main_data = data;
 		if (set_philo_forks(data, data->fork_arr, i) == EXIT_FAILURE)

@@ -1,10 +1,5 @@
 {
 	"files.associations": {
-		"philosophers.h": "c",
-		"array": "c",
-		"string": "c",
-		"string_view": "c",
-		"data_and_consts.h": "c",
-		"utils.h": "c"
+		"philosophers.h": "c"
 	}
 }

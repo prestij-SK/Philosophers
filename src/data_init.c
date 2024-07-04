@@ -2,27 +2,29 @@
 
 void	philo_data_delete(t_PhiloData *data)
 {
+	size_t	i;
+
 	if (!data)
 		return ;
-	data->philo_num = 0;
-	data->time_to_die = 0;
-	data->time_to_eat = 0;
-	data->time_to_sleep = 0;
-	data->eat_limit = UNDEFINED_VAL;
 	free(data->philo_arr);
 	data->philo_arr = NULL;
+	i = 0;
+	if (data->fork_arr)
+	{
+		while (i < data->philo_num)
+		{
+			mutex_operation_handle(data, &data->fork_arr[i].fork, DESTROY);
+			++i;
+		}
+	}
 	free(data->fork_arr);
 	data->fork_arr = NULL;
-	// data->simulate_start = B_FALSE;
-	// data->simulate_end = B_TRUE;
 }
 
 static int	philo_thread_data_init(t_PhiloData *data)
 {
 	if (!data)
 		return (EXIT_FAILURE);
-	data->simulate_start = B_TRUE;
-	data->simulate_end = B_FALSE;
 	data->fork_arr = NULL;
 	data->philo_arr = NULL;
 	// mutex_operation_handle(data, &data->data_mutex, INIT);
@@ -45,9 +47,9 @@ static int	philo_argument_data_init(t_PhiloData *data, char **argv, int argc)
 	if (is_philo_valid_args(argv, argc) == NOT_VALID)
 		return (EXIT_FAILURE);
 	data->philo_num = ft_atosize_t(argv[1]);
-	data->time_to_die = ft_atosize_t(argv[2]) * SECOND_MILLI_VALUE;
-	data->time_to_eat = ft_atosize_t(argv[3]) * SECOND_MILLI_VALUE;
-	data->time_to_sleep = ft_atosize_t(argv[4]) * SECOND_MILLI_VALUE;
+	data->time_to_die = ft_atosize_t(argv[2]);
+	data->time_to_eat = ft_atosize_t(argv[3]);
+	data->time_to_sleep = ft_atosize_t(argv[4]);
 	if (argc == 6)
 		data->eat_limit = ft_atosize_t(argv[5]);
 	else

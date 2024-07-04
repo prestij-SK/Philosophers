@@ -7,8 +7,7 @@
 
 /*** CONSTANTS ***/
 # define MAX_NUMBER_COUNT 19
-# define SECOND_MILLI_VALUE 1e3
-# define SECOND_MICRO_VALUE 1e6
+# define THOUSAND 1e3
 # define MIN_MILLISECOND_LIMIT 6e4
 # define UNDEFINED_VAL -1
 
@@ -34,7 +33,8 @@ typedef enum PThreadOperationCode
 
 typedef enum PhilosopherStatus
 {
-	FORK_PICK,
+	LEFT_FORK,
+	RIGHT_FORK,
 	THINK,
 	EAT,
 	SLEEP,
@@ -55,6 +55,7 @@ typedef struct Philosopher
 	size_t		id;
 	int			is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
 	int			is_dead;
+	int			must_stop;
 	size_t		meals_count; // how many times philosopher eat
 	size_t		last_meal_time; // time passed from last meal
 	t_Fork		*left_fork;
@@ -72,10 +73,8 @@ struct	PhilosophersData
 	ssize_t			eat_limit;
 	t_Philo			*philo_arr;
 	t_Fork			*fork_arr;
+	pthread_t		obs;
 	// pthread_mutex_t	data_mutex; // To avoid races when reading from main data
-	int				simulate_start;
-	int				simulate_end;
-	int				is_threads_ready; // Used to synchronize Philosophers
 };
 
 #endif

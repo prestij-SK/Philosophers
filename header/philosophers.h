@@ -31,6 +31,11 @@ void	philo_data_delete(t_PhiloData *data);
 void	philo_dinner_start(t_PhiloData *data);
 int		check_all_full(t_PhiloData *data);
 int		is_current_philo_dead(t_Philo *philo);
+void	print_philo_action(t_Philo *philo, t_PhiloStatus op);
+int		philo_pickup_fork(t_Philo *philo);
+int		philo_eat(t_Philo *philo);
+int		philo_sleep(t_Philo *philo);
+int		philo_think(t_Philo *philo);
 
 /*
 	thread_utils.c functions
