@@ -56,7 +56,7 @@ typedef struct Philosopher
 	int			is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
 	int			is_dead;
 	int			must_stop;
-	size_t		meals_count; // how many times philosopher eat
+	ssize_t		meals_count; // how many times philosopher eat
 	size_t		last_meal_time; // time passed from last meal
 	t_Fork		*left_fork;
 	t_Fork		*right_fork;

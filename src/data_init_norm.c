@@ -24,7 +24,10 @@ static int	set_philo_forks(t_PhiloData *data, t_Fork *fork_arr, int index)
 	// if (index % 2 == 0)
 	// {
 		data->philo_arr[index].left_fork = &fork_arr[index];
-		data->philo_arr[index].right_fork = &fork_arr[(index + 1) % data->philo_num];
+		if (data->philo_num > 1)
+		{
+			data->philo_arr[index].right_fork = &fork_arr[(index + 1) % data->philo_num];
+		}
 	// }
 	// else
 	// {

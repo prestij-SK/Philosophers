@@ -34,6 +34,8 @@ int	philo_eat(t_Philo *philo)
 	print_philo_action(philo, EAT);
 	philo->last_meal_time = get_time();
 	milisecond_sleep(philo->main_data->time_to_eat);
+	if (philo->meals_count == philo->main_data->eat_limit)
+		philo->is_full = B_TRUE;
 	mutex_operation_handle(philo->main_data, &philo->left_fork->fork, UNLOCK);
 	mutex_operation_handle(philo->main_data, &philo->right_fork->fork, UNLOCK);
 	return (B_TRUE);

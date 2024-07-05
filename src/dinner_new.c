@@ -1,7 +1,28 @@
 #include "../header/philosophers.h"
 
+// Actually no point to create a function for one philo only,
+// but the subject wants to create as much thread as much philos there are.
+// So just simple no sense logic for one philo thread
+static void	*one_philo(void *p_data)
+{
+	t_Philo	*philo;
+
+	if (!p_data)
+		return (NULL);
+	philo = (t_Philo *)p_data;
+	mutex_operation_handle(philo->main_data, &philo->left_fork->fork, LOCK);
+	print_philo_action(philo, LEFT_FORK);
+	milisecond_sleep(philo->main_data->time_to_die);
+	mutex_operation_handle(philo->main_data, &philo->left_fork->fork, UNLOCK);
+	philo->is_dead = B_TRUE;
+	print_philo_action(philo, DEAD);
+	return (NULL);
+}
+
 static void	dinner_case_checks(t_PhiloData *data)
 {
+	int	status;
+
 	if (!data)
 		error_exit("Simulation Issue!");
 	if (data->eat_limit == 0)
@@ -11,7 +32,14 @@ static void	dinner_case_checks(t_PhiloData *data)
 	}
 	else if (data->philo_num == 1)
 	{
-		// TO DO
+		status = thread_operation_handle(&data->philo_arr[0].thread, one_philo, &data->philo_arr[0], CREATE);
+		thread_error_handle(data, status, CREATE);
+		while (data->philo_arr[0].is_dead != B_TRUE)
+		{}
+		status = thread_operation_handle(&data->philo_arr[0].thread, one_philo, &data->philo_arr[0], JOIN);
+		thread_error_handle(data, status, JOIN);
+		philo_data_delete(data);
+		success_exit("Simulation Ended!");
 	}
 }
 
@@ -50,12 +78,14 @@ static void	*time_to_feast(void *p_data)
 {
 	t_Philo	*philo;
 
+	if (!p_data)
+		return (NULL);
 	philo = (t_Philo *)p_data;
 	if (philo->id % 2 == 0)
 		milisecond_sleep(philo->main_data->time_to_eat);
 	while (B_TRUE)
 	{
-		if (philo->must_stop == B_TRUE)
+		if (philo->is_full == B_TRUE || philo->must_stop == B_TRUE)
 			break ;
 		if (is_current_philo_dead(philo) == B_TRUE)
 			philo->is_dead = B_TRUE;
@@ -76,23 +106,6 @@ static void	*time_to_feast(void *p_data)
 	return (NULL);
 }
 
-// static void	dinner_simulation(t_PhiloData *data)
-// {
-// 	size_t	i;
-// 	int		status;
-
-// 	if (!data)
-// 		error_exit("Simulation Issue!");
-// 	i = 0;
-// 	while (i < data->philo_num)
-// 	{
-// 		data->philo_arr[i].last_meal_time = get_time();
-// 		status = thread_operation_handle(&data->philo_arr[i].thread, time_to_feast, &data->philo_arr[i], CREATE);
-// 		thread_error_handle(data, status, CREATE);
-// 		++i;
-// 	}
-// }
-
 void	philo_dinner_start(t_PhiloData *data)
 {
 	int		status;
@@ -100,11 +113,6 @@ void	philo_dinner_start(t_PhiloData *data)
 
 	if (!data)
 		error_exit("Simulation Issue!");
-	// printf("p_num: %zu\n", data->philo_num);
-	// printf("t_die: %zu\n", data->time_to_die);
-	// printf("t_eat: %zu\n", data->time_to_eat);
-	// printf("t_sleep: %zu\n", data->time_to_sleep);
-	// printf("p_num: %zd\n", data->eat_limit);
 	dinner_case_checks(data);
 	status = thread_operation_handle(&data->obs, observer, data, CREATE);
 	thread_error_handle(data, status, CREATE);
