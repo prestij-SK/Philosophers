@@ -11,7 +11,7 @@ SRCS_NAME = data_init_norm.c \
 			data_init.c \
 			dinner_utils_norm.c \
 			dinner_utils.c \
-			dinner_new.c \
+			dinner.c \
 			libft.c \
 			main.c \
 			philosophers.c \

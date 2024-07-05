@@ -49,6 +49,7 @@ void	philo_philosophers_data_init(t_PhiloData *data)
 	while (i < data->philo_num)
 	{
 		data->philo_arr[i].id = i;
+		data->philo_arr[i].is_ready = B_FALSE;
 		data->philo_arr[i].is_full = B_FALSE;
 		data->philo_arr[i].is_dead = B_FALSE;
 		data->philo_arr[i].must_stop = B_FALSE;

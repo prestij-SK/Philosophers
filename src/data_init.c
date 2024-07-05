@@ -27,7 +27,6 @@ static int	philo_thread_data_init(t_PhiloData *data)
 		return (EXIT_FAILURE);
 	data->fork_arr = NULL;
 	data->philo_arr = NULL;
-	// mutex_operation_handle(data, &data->data_mutex, INIT);
 	data->philo_arr = (t_Philo *)malloc(sizeof(t_Philo) * (data->philo_num));
 	data->fork_arr = (t_Fork *)malloc(sizeof(t_Fork) * (data->philo_num));
 	if (!data->fork_arr || !data->philo_arr)

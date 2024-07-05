@@ -58,3 +58,27 @@ int	philo_think(t_Philo *philo)
 	// usleep(1e3);
 	return (B_TRUE);
 }
+
+int	philo_action_chain(t_Philo *philo)
+{
+	if (!philo)
+		return (B_FALSE);
+	if (philo->is_full == B_TRUE || philo->must_stop == B_TRUE)
+		return (B_FALSE) ;
+	if (is_current_philo_dead(philo) == B_TRUE)
+		philo->is_dead = B_TRUE;
+	if (philo->is_dead == B_TRUE)
+	{
+		print_philo_action(philo, DEAD);
+		return (B_FALSE);
+	}
+	if (philo_pickup_fork(philo) == B_FALSE)
+		return (B_FALSE);
+	if (philo_eat(philo) == B_FALSE)
+		return (B_FALSE);
+	if (philo_sleep(philo) == B_FALSE)
+		return (B_FALSE);
+	if (philo_think(philo) == B_FALSE)
+		return (B_FALSE);
+	return (B_TRUE);
+}

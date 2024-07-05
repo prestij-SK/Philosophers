@@ -7,8 +7,7 @@
 
 /*** CONSTANTS ***/
 # define MAX_NUMBER_COUNT 19
-# define THOUSAND 1e3
-# define MIN_MILLISECOND_LIMIT 6e4
+# define MIN_MILLISECOND_LIMIT 60
 # define UNDEFINED_VAL -1
 
 /*** STATUSES ***/
@@ -53,6 +52,7 @@ typedef struct Fork
 typedef struct Philosopher
 {
 	size_t		id;
+	int			is_ready; // This will be used to see if all threads are ready (synchronized)
 	int			is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
 	int			is_dead;
 	int			must_stop;

@@ -49,3 +49,17 @@ void	print_philo_action(t_Philo *philo, t_PhiloStatus op)
 	else
 		printf("UNEXPECTED OPERATION!\n");
 }
+
+void	wait_all_threads(t_PhiloData *data)
+{
+	size_t	i;
+
+	if (!data)
+		return ;
+	i = 0;
+	while (i < data->philo_num)
+	{
+		if (data->philo_arr[i].is_ready == B_TRUE)
+			++i;
+	}	
+}

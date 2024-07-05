@@ -36,6 +36,8 @@ int		philo_pickup_fork(t_Philo *philo);
 int		philo_eat(t_Philo *philo);
 int		philo_sleep(t_Philo *philo);
 int		philo_think(t_Philo *philo);
+void	wait_all_threads(t_PhiloData *data);
+int		philo_action_chain(t_Philo *philo);
 
 /*
 	thread_utils.c functions
