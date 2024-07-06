@@ -17,7 +17,10 @@ void	mutex_operation_handle(t_PhiloData *data, pthread_mutex_t *mutex, t_PThread
 	else if (op_code == INIT)
 		status = pthread_mutex_init(mutex, NULL);
 	else if (op_code == DESTROY)
+	{
+		printf("here\n");
 		status = pthread_mutex_destroy(mutex);
+	}
 	else
 		status = EXIT_FAILURE;
 	mutex_error_handle(data, status, op_code);

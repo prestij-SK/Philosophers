@@ -30,22 +30,26 @@ int	is_current_philo_dead(t_Philo *philo)
 void	print_philo_action(t_Philo *philo, t_PhiloStatus op)
 {
 	size_t	id;
+	size_t	time;
 
 	if (!philo)
 		return ;
+	if (philo->must_stop == B_TRUE)
+		return ;
 	id = philo->id + 1;
+	time = get_time();
 	if (op == DEAD)
-		printf("Philo [%zu]: MAN I'M DEAD\n", id);
+		printf("%zu %zu died\n", time - philo->timestamp, id);
 	else if (op == LEFT_FORK)
-		printf("Philo [%zu]: PICKED LEFT FORK\n", id);
+		printf("%zu %zu has taken a fork\n", time - philo->timestamp, id);
 	else if (op == RIGHT_FORK)
-		printf("Philo [%zu]: PICKED RIGHT FORK\n", id);
+		printf("%zu %zu has taken a fork\n", time - philo->timestamp, id);
 	else if (op == EAT)
-		printf("Philo [%zu]: ME EAT\n", id);
+		printf("%zu %zu is eating\n", time - philo->timestamp, id);
 	else if (op == SLEEP)
-		printf("Philo [%zu]: NIGHT NIGHT\n", id);
+		printf("%zu %zu is sleeping\n", time - philo->timestamp, id);
 	else if (op == THINK)
-		printf("Philo [%zu]: ME THINK, ME SMART\n", id);
+		printf("%zu %zu is thinking\n", time - philo->timestamp, id);
 	else
 		printf("UNEXPECTED OPERATION!\n");
 }

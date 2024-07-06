@@ -1,7 +1,7 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 SRCS_DIR = src/
 OBJS_DIR = obj/
@@ -31,7 +31,7 @@ OBJS_NAME = $(SRCS_NAME:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) -fsanitize=thread $^ -o $@
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(addprefix $(HEADERS_DIR), $(HEADERS)) Makefile
 	$(CC) $(CFLAGS) -c $< -o $@

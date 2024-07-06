@@ -31,8 +31,8 @@ int	philo_eat(t_Philo *philo)
 	if (!philo)
 		return (B_FALSE);
 	philo->meals_count += 1;
-	print_philo_action(philo, EAT);
 	philo->last_meal_time = get_time();
+	print_philo_action(philo, EAT);
 	milisecond_sleep(philo->main_data->time_to_eat);
 	if (philo->meals_count == philo->main_data->eat_limit)
 		philo->is_full = B_TRUE;
@@ -61,8 +61,8 @@ int	philo_think(t_Philo *philo)
 
 int	philo_action_chain(t_Philo *philo)
 {
-	if (!philo)
-		return (B_FALSE);
+	// if (!philo)
+	// 	return (B_FALSE);
 	if (philo->is_full == B_TRUE || philo->must_stop == B_TRUE)
 		return (B_FALSE) ;
 	if (is_current_philo_dead(philo) == B_TRUE)

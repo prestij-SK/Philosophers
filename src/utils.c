@@ -26,5 +26,9 @@ size_t	get_time(void)
 
 void	milisecond_sleep(size_t t_miliseconds)
 {
-	usleep(t_miliseconds * 1e3);
+	size_t	start;
+
+	start = get_time();
+	while ((get_time() - start) < t_miliseconds)
+		usleep(500);
 }

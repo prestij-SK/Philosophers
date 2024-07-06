@@ -58,6 +58,7 @@ typedef struct Philosopher
 	int			must_stop;
 	ssize_t		meals_count; // how many times philosopher eat
 	size_t		last_meal_time; // time passed from last meal
+	size_t		timestamp;
 	t_Fork		*left_fork;
 	t_Fork		*right_fork;
 	pthread_t	thread; // philosopher is a thread
@@ -73,8 +74,7 @@ struct	PhilosophersData
 	ssize_t			eat_limit;
 	t_Philo			*philo_arr;
 	t_Fork			*fork_arr;
-	pthread_t		obs;
-	// pthread_mutex_t	data_mutex; // To avoid races when reading from main data
+	pthread_mutex_t	main_mutex;
 };
 
 #endif

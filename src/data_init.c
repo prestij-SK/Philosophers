@@ -6,8 +6,6 @@ void	philo_data_delete(t_PhiloData *data)
 
 	if (!data)
 		return ;
-	free(data->philo_arr);
-	data->philo_arr = NULL;
 	i = 0;
 	if (data->fork_arr)
 	{
@@ -17,6 +15,8 @@ void	philo_data_delete(t_PhiloData *data)
 			++i;
 		}
 	}
+	free(data->philo_arr);
+	data->philo_arr = NULL;
 	free(data->fork_arr);
 	data->fork_arr = NULL;
 }
