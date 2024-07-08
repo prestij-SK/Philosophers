@@ -29,7 +29,8 @@ static int	philo_thread_data_init(t_PhiloData *data)
 	data->philo_arr = NULL;
 	data->philo_arr = (t_Philo *)malloc(sizeof(t_Philo) * (data->philo_num));
 	data->fork_arr = (t_Fork *)malloc(sizeof(t_Fork) * (data->philo_num));
-	if (!data->fork_arr || !data->philo_arr)
+	data->lock_arr = (t_Fork *)malloc(sizeof(t_Fork) * (data->philo_num));
+	if (!data->fork_arr || !data->philo_arr || !data->lock_arr)
 	{
 		philo_data_delete(data);
 		return (EXIT_FAILURE);

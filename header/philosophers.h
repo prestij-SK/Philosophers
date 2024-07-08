@@ -48,4 +48,16 @@ int		thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_d
 void	thread_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code);
 void	join_all_threads(t_PhiloData *data, void *(*func)(void *));
 
+/*
+	getter.c setter.c functions
+*/
+void	set_is_ready(t_Philo *philo, int set);
+void	set_is_full(t_Philo *philo, int set);
+void	set_is_dead(t_Philo *philo, int set);
+void	set_must_stop(t_Philo *philo, int set);
+int		get_is_ready(t_Philo *philo);
+int		get_is_full(t_Philo *philo);
+int		get_is_dead(t_Philo *philo);
+int		get_must_stop(t_Philo *philo);
+
 #endif

@@ -61,8 +61,8 @@ int	philo_think(t_Philo *philo)
 
 int	philo_action_chain(t_Philo *philo)
 {
-	// if (!philo)
-	// 	return (B_FALSE);
+	if (!philo)
+		return (B_FALSE);
 	if (philo->is_full == B_TRUE || philo->must_stop == B_TRUE)
 		return (B_FALSE) ;
 	if (is_current_philo_dead(philo) == B_TRUE)
