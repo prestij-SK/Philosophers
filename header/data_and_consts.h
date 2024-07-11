@@ -51,31 +51,36 @@ typedef struct Fork
 
 typedef struct Philosopher
 {
-	size_t		id;
-	int			is_ready; // This will be used to see if all threads are ready (synchronized)
-	int			is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
-	int			is_dead;
-	int			must_stop;
-	ssize_t		meals_count; // how many times philosopher eat
-	size_t		last_meal_time; // time passed from last meal
-	size_t		timestamp;
-	t_Fork		*lock;
-	t_Fork		*left_fork;
-	t_Fork		*right_fork;
-	pthread_t	thread; // philosopher is a thread
-	t_PhiloData	*main_data;
+	size_t			id;
+	int				is_ready; // This will be used to see if all threads are ready (synchronized)
+	int				is_full; // if philosopher's 'meals_counter' is reached to maximum allowed (5th argument) meanls
+	int				is_dead;
+	int				must_stop;
+	ssize_t			meals_count; // how many times philosopher eat
+	size_t			last_meal_time; // time passed from last meal
+	t_Fork			*lock;
+	t_Fork			*left_fork;
+	t_Fork			*right_fork;
+	pthread_t		thread; // philosopher is a thread
+	pthread_mutex_t	philo_mtx;
+	t_PhiloData		*main_data;
 }	t_Philo;
 
 struct	PhilosophersData
 {
-	size_t			philo_num;
+	size_t			philo_num; // number of philosophers
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	ssize_t			eat_limit;
+	size_t			start_time;
+	int				stop_simulation; // Will mean that all philosophers (threads) must stop their work
 	t_Philo			*philo_arr;
 	t_Fork			*fork_arr;
-	t_Fork			*lock_arr;
+	pthread_mutex_t	print_mtx;
+	pthread_mutex_t	getter_mtx;
+	pthread_mutex_t	setter_mtx;
+	pthread_mutex_t	iterator_mtx;
 };
 
 #endif

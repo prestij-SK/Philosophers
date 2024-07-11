@@ -17,10 +17,7 @@ void	mutex_operation_handle(t_PhiloData *data, pthread_mutex_t *mutex, t_PThread
 	else if (op_code == INIT)
 		status = pthread_mutex_init(mutex, NULL);
 	else if (op_code == DESTROY)
-	{
-		printf("here\n");
 		status = pthread_mutex_destroy(mutex);
-	}
 	else
 		status = EXIT_FAILURE;
 	mutex_error_handle(data, status, op_code);
@@ -54,22 +51,25 @@ void	mutex_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code)
 
 // There should be t_PhiloData *data in parameters of this function, but Norminette won't let me do it.
 // So, it is what it is.
-int	thread_operation_handle(pthread_t *thread, void *(*func)(void *), void *p_data, t_PThreadOpCode op_code)
+void	thread_operation_handle(t_Philo *philo, pthread_t *thread, void *(*func)(void *), t_PThreadOpCode op_code)
 {
 	int	status;
 
-	if (!thread || !p_data || !func)
-		return (EXIT_FAILURE);
+	if (!philo || !thread || !func)
+	{
+		philo_data_delete(philo->main_data);
+		error_exit("Thread Operation!");
+	}
 	status = EXIT_SUCCESS;
 	if (op_code == CREATE)
-		status = pthread_create(thread, NULL, func, p_data);
+		status = pthread_create(thread, NULL, func, (void *)philo);
 	else if (op_code == JOIN)
 		status = pthread_join(*thread, NULL);
 	else if (op_code == DETACH)
 		status = pthread_detach(*thread);
 	else
 		status = EXIT_FAILURE;
-	return (status);
+	thread_error_handle(philo->main_data, status, op_code);
 }
 
 void	thread_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code)
@@ -102,15 +102,29 @@ void	thread_error_handle(t_PhiloData *data, int status, t_PThreadOpCode op_code)
 void	join_all_threads(t_PhiloData *data, void *(*func)(void *))
 {
 	size_t	i;
-	int		status;
 
 	if (!data)
 		error_exit("Thread Operation!");
 	i = 0;
 	while (i < data->philo_num)
 	{
-		status = thread_operation_handle(&data->philo_arr[i].thread, func, &data->philo_arr[i], JOIN);
-		thread_error_handle(data, status, JOIN);
+		thread_operation_handle(&data->philo_arr[i], &data->philo_arr[i].thread, func, JOIN);
 		++i;
+	}
+}
+
+void	wait_all_threads(t_PhiloData *data)
+{
+	size_t	philo_count;
+	size_t	i;
+
+	if (!data)
+		return ;
+	philo_count = get_philo_num(data);
+	i = 0;
+	while (i < philo_count)
+	{
+		if (get_is_ready(&data->philo_arr[i]) == B_TRUE)
+			++i;
 	}
 }

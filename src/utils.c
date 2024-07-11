@@ -30,5 +30,5 @@ void	milisecond_sleep(size_t t_miliseconds)
 
 	start = get_time();
 	while ((get_time() - start) < t_miliseconds)
-		usleep(500);
+		usleep(500); // was 500, why 250 ?
 }

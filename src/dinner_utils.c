@@ -20,7 +20,7 @@ int	is_current_philo_dead(t_Philo *philo)
 {
 	if (!philo)
 		return (B_TRUE);
-	if (philo->is_dead)
+	if (get_is_dead(philo))
 		return (B_TRUE);
 	if (philo->main_data->time_to_die < (get_time() - philo->last_meal_time))
 		return (B_TRUE);

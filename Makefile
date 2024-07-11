@@ -9,12 +9,15 @@ HEADERS_DIR = header/
 
 SRCS_NAME = data_init_norm.c \
 			data_init.c \
-			dinner_utils_norm.c \
-			dinner_utils.c \
+			dinner_norm.c \
 			dinner.c \
+			getter.c \
 			libft.c \
 			main.c \
+			observer.c \
 			philosophers.c \
+			print_action.c \
+			setter.c \
 			thread_utils.c \
 			utils.c \
 			validation.c \

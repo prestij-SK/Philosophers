@@ -12,9 +12,14 @@ void	philo_data_delete(t_PhiloData *data)
 		while (i < data->philo_num)
 		{
 			mutex_operation_handle(data, &data->fork_arr[i].fork, DESTROY);
+			mutex_operation_handle(data, &data->philo_arr[i].philo_mtx, DESTROY);
 			++i;
 		}
 	}
+	mutex_operation_handle(data, &data->print_mtx, DESTROY);
+	mutex_operation_handle(data, &data->getter_mtx, DESTROY);
+	mutex_operation_handle(data, &data->setter_mtx, DESTROY);
+	mutex_operation_handle(data, &data->iterator_mtx, DESTROY);
 	free(data->philo_arr);
 	data->philo_arr = NULL;
 	free(data->fork_arr);
@@ -29,8 +34,7 @@ static int	philo_thread_data_init(t_PhiloData *data)
 	data->philo_arr = NULL;
 	data->philo_arr = (t_Philo *)malloc(sizeof(t_Philo) * (data->philo_num));
 	data->fork_arr = (t_Fork *)malloc(sizeof(t_Fork) * (data->philo_num));
-	data->lock_arr = (t_Fork *)malloc(sizeof(t_Fork) * (data->philo_num));
-	if (!data->fork_arr || !data->philo_arr || !data->lock_arr)
+	if (!data->fork_arr || !data->philo_arr)
 	{
 		philo_data_delete(data);
 		return (EXIT_FAILURE);
